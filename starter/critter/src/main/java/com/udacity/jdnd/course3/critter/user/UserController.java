@@ -51,8 +51,11 @@ public class UserController {
         List<CustomerDTO> listResult = new ArrayList<>();
         for (Customer customer : customerService.getAllCustomers()) {
             CustomerDTO cDTO = objectMapper.convertValue(customer, CustomerDTO.class);
-            List<Long> petIds = customer.getPetIds().stream().map(Pet::getId).collect(Collectors.toList());
-            cDTO.setPetIds(petIds);
+            if (customer.getPetIds() != null) {
+                List<Long> petIds = customer.getPetIds().stream().map(Pet::getId).collect(Collectors.toList());
+                cDTO.setPetIds(petIds);
+            }
+
             listResult.add(cDTO);
         }
         return listResult;
@@ -62,8 +65,10 @@ public class UserController {
     public CustomerDTO getOwnerByPet(@PathVariable long petId) {
         Customer customer = petService.getOwnerByPet(petId);
         CustomerDTO customerDTO = objectMapper.convertValue(customer, CustomerDTO.class);
-        List<Long> petIds = customer.getPetIds().stream().map(Pet::getId).collect(Collectors.toList());
-        customerDTO.setPetIds(petIds);
+        if (customer.getPetIds() != null) {
+            List<Long> petIds = customer.getPetIds().stream().map(Pet::getId).collect(Collectors.toList());
+            customerDTO.setPetIds(petIds);
+        }
         return customerDTO;
     }
 

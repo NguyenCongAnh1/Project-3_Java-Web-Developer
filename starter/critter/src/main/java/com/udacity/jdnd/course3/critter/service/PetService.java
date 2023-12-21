@@ -9,9 +9,11 @@ import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class PetService {
 
     @Autowired
@@ -29,6 +31,8 @@ public class PetService {
         });
         Pet pet = objectMapper.convertValue(petDTO, Pet.class);
         pet.setOwner(owner);
+//        owner.addPet(pet);
+//        customerRepository.save(owner);
         return petRepository.save(pet);
     }
 

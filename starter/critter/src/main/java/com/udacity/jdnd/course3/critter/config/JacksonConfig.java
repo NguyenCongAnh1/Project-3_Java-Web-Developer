@@ -12,17 +12,12 @@ public class JacksonConfig {
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-
         // Configure ObjectMapper properties as needed
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
         objectMapper.registerModule(new JavaTimeModule());
-
         // Disable FAIL_ON_EMPTY_BEANS
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-
-
         return objectMapper;
     }
 }

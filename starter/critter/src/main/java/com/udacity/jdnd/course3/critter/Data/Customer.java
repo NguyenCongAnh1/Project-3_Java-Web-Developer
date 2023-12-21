@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,5 +30,12 @@ public class Customer {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List <Pet> petIds;
+
+    public void addPet(Pet pet){
+        if(petIds == null){
+            petIds = new ArrayList<>();
+        }
+        petIds.add(pet);
+    }
 
 }
