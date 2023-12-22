@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,73 +21,40 @@ import java.util.stream.Collectors;
 import static org.checkerframework.checker.nullness.Opt.orElseThrow;
 
 @Service
+@Transactional
 public class ScheduleService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
-
-    @Autowired
-    PetRepository petRepository;
-
-    public ScheduleDTO convertToScheduleDTO(Schedule schedule) {
-        ScheduleDTO result = objectMapper.convertValue(schedule, ScheduleDTO.class);
-        List<Long> employeeIds = schedule.getEmployees().stream().map(Employee::getId).collect(Collectors.toList());
-        List<Long> petIds = schedule.getPets().stream().map(Pet::getId).collect(Collectors.toList());
-        result.setEmployeeIds(employeeIds);
-        result.setPetIds(petIds);
-        return result;
-    }
-
-    public Schedule convertToSchedule(ScheduleDTO scheduleDTO) {
-        Schedule schedule = objectMapper.convertValue(scheduleDTO, Schedule.class);
-        List<Employee> employees = new ArrayList<>();
-        List<Pet> pets = new ArrayList<>();
-        for (Long employeeId : scheduleDTO.getEmployeeIds()) {
-            Employee employee =
-                    employeeRepository.findById(employeeId).orElseThrow(() -> new EntityNotFoundException("Employee " +
-                            "not found with ID: " + employeeId));
-            employees.add(employee);
-        }
-        for (Long petId : scheduleDTO.getPetIds()) {
-            Pet pet = petRepository.findById(petId).orElseThrow(() -> new EntityNotFoundException("Pet not found with" +
-                    " ID: " + petId));
-            pets.add(pet);
-        }
-
-        schedule.setEmployees(employees);
-        schedule.setPets(pets);
-
-        return schedule;
-    }
-
-    public ScheduleDTO createSchedule(ScheduleDTO scheduleDTO) {
-        Schedule savedSchedule = convertToSchedule(scheduleDTO);
-        return convertToScheduleDTO(scheduleRepository.save(savedSchedule));
+    public Schedule createSchedule(Schedule schedule) {
+        return scheduleRepository.save(schedule);
 
     }
 
-    public List<ScheduleDTO> getAllSchedule() {
-        return scheduleRepository.findAll().stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+    public List<Schedule> getAllSchedule() {
+//        return scheduleRepository.findAll().stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+        return scheduleRepository.findAll();
     }
 
-    public List<ScheduleDTO> getScheduleDTOsByPetId(Long petId){
 
-        return scheduleRepository.findByPets_id(petId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+    public List<Schedule> getScheduleDTOsByPetId(Long petId){
+
+//        return scheduleRepository.findByPets_id(petId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+        return scheduleRepository.findByPets_id(petId);
     }
 
-    public List<ScheduleDTO> getScheduleDTOsByEmployeeId(Long employeeId){
-        return scheduleRepository.findByEmployees_id(employeeId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+    public List<Schedule> getScheduleDTOsByEmployeeId(Long employeeId){
+//        return scheduleRepository.findByEmployees_id(employeeId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+        return scheduleRepository.findByEmployees_id(employeeId);
     }
 
-    public List<ScheduleDTO> getScheduleDTOSByCustomerId(Long customerId){
-        return scheduleRepository.findByCustomers_id(customerId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+
+    public List<Schedule> getScheduleDTOSByCustomerId(Long customerId){
+//        return scheduleRepository.findByCustomers_id(customerId).stream().map(this::convertToScheduleDTO).collect(Collectors.toList());
+        return scheduleRepository.findByCustomers_id(customerId);
     }
+
 
 
 }

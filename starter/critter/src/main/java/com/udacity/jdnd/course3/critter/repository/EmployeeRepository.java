@@ -14,7 +14,9 @@ import java.util.Set;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    @Query("SELECT DISTINCT e FROM Employee e JOIN e.skills skills WHERE skills IN :skills AND :day IN elements(e.daysAvailable)")
-    List<Employee> findEmployeeBySkillsAndAndDaysAvailable(@Param("skills") Set<EmployeeSkill> skills,
-                                                           @Param("day") DayOfWeek day);
+//    @Query("SELECT DISTINCT e FROM Employee e JOIN e.skills skills WHERE skills IN :skills AND :day IN elements(e.daysAvailable)")
+//    List<Employee> findEmployeeBySkillsAndAndDaysAvailable(@Param("skills") Set<EmployeeSkill> skills,
+//                                                           @Param("day") DayOfWeek day);
+
+    List<Employee> getAllBySkillsIn(Set<EmployeeSkill> skills);
 }
