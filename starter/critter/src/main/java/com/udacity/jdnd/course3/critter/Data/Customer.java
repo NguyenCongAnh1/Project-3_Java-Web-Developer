@@ -2,8 +2,7 @@ package com.udacity.jdnd.course3.critter.Data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
@@ -13,6 +12,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+//@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class Customer {
     @Nationalized
     private String notes;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @JsonIgnore
     private List <Pet> petIds;
 
@@ -35,7 +37,10 @@ public class Customer {
         if(petIds == null){
             petIds = new ArrayList<>();
         }
-        petIds.add(pet);
+        if (!petIds.contains(pet)) {
+            petIds.add(pet);
+        }
+
     }
 
 }

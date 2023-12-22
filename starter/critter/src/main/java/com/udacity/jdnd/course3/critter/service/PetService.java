@@ -9,11 +9,10 @@ import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class PetService {
 
     @Autowired
@@ -22,16 +21,16 @@ public class PetService {
     CustomerRepository customerRepository;
 
     @Autowired
+    CustomerService customerService;
+    @Autowired
     ObjectMapper objectMapper;
 
 
     public Pet savePet(Pet pet, Long ownerId) {
-        Customer owner = customerRepository.findById(ownerId).orElseThrow(() -> {
-            return null;
-        });
+        Customer owner = customerRepository.findById(ownerId).orElseThrow(() -> null);
         pet.setOwner(owner);
         Pet savedPet = petRepository.save(pet);
-        owner.addPet(pet);
+        owner.addPet(savedPet);
         customerRepository.save(owner);
         return savedPet;
     }
@@ -47,9 +46,7 @@ public class PetService {
         return petRepository.findById(petId).orElseThrow(() -> {
             return null;
         });
-
     }
-
     public List<Pet> getAllPets() {
         return petRepository.findAll();
     }

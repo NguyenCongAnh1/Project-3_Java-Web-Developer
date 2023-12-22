@@ -42,6 +42,14 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+//        Customer c = Customer.builder()
+//                .name(customerDTO.getName())
+//                .phoneNumber(customerDTO.getPhoneNumber())
+//                .petIds(new ArrayList<>())
+//                .build();
+//        c = customerService.saveCustomer(c);
+//        List<Customer> d= customerService.getAllCustomers();
+
         Customer c = customerService.saveCustomer(objectMapper.convertValue(customerDTO, Customer.class));
         return objectMapper.convertValue(c, CustomerDTO.class);
     }
@@ -92,7 +100,8 @@ public class UserController {
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
 
         List<EmployeeDTO> listResult = new ArrayList<>();
-        for (Employee employee : employeeService.findEmployeesForService(employeeDTO.getDate(), employeeDTO.getSkills())) {
+        for (Employee employee : employeeService.findEmployeesForService(employeeDTO.getDate(),
+                employeeDTO.getSkills())) {
             EmployeeDTO eDTO = objectMapper.convertValue(employee, EmployeeDTO.class);
             listResult.add(eDTO);
         }
