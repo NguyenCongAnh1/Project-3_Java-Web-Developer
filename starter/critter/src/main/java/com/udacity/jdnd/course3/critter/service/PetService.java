@@ -25,15 +25,15 @@ public class PetService {
     ObjectMapper objectMapper;
 
 
-    public Pet savePet(PetDTO petDTO) {
-        Customer owner = customerRepository.findById(petDTO.getOwnerId()).orElseThrow(() -> {
+    public Pet savePet(Pet pet, Long ownerId) {
+        Customer owner = customerRepository.findById(ownerId).orElseThrow(() -> {
             return null;
         });
-        Pet pet = objectMapper.convertValue(petDTO, Pet.class);
         pet.setOwner(owner);
-//        owner.addPet(pet);
-//        customerRepository.save(owner);
-        return petRepository.save(pet);
+        Pet savedPet = petRepository.save(pet);
+        owner.addPet(pet);
+        customerRepository.save(owner);
+        return savedPet;
     }
 
     public Customer getOwnerByPet(Long pedId) {

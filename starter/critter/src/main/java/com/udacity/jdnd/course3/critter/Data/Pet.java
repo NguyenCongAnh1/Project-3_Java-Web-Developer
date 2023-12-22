@@ -28,7 +28,7 @@ public class Pet {
     @Nationalized
     private String notes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Customer owner;
 
 }

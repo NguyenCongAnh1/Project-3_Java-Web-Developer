@@ -92,7 +92,7 @@ public class UserController {
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
 
         List<EmployeeDTO> listResult = new ArrayList<>();
-        for (Employee employee : employeeService.findEmployeesForService(employeeDTO)) {
+        for (Employee employee : employeeService.findEmployeesForService(employeeDTO.getDate(), employeeDTO.getSkills())) {
             EmployeeDTO eDTO = objectMapper.convertValue(employee, EmployeeDTO.class);
             listResult.add(eDTO);
         }
