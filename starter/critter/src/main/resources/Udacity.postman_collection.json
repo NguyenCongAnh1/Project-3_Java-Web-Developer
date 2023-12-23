@@ -191,41 +191,6 @@
 			"response": []
 		},
 		{
-			"name": "Create Schedule",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\"MONDAY\", \"TUESDAY\", \"FRIDAY\"]",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8082/schedule",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"schedule"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Find Schedule By Pet",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
