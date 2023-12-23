@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3da4eeec-6238-471f-ab55-ce0d742fa76e",
-		"name": "Udacity",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "c1ce4bb7-ebcb-4d3a-a657-878f37cf7b8e",
+		"name": "Project 3_Java Web Developer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20948593"
 	},
 	"item": [
 		{
@@ -19,7 +20,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Alex\",\r\n  \"phoneNumber\": \"1234567890\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Customer 2\",\r\n    \"phoneNumber\": \"123456789\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": \"CAT\",\r\n  \"name\": \"Kilo\",\r\n  \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n  \"notes\": \"HI KILO\"\r\n, \"ownerId\": \"1\"\n}",
+					"raw": "{\r\n    \"type\": \"CAT\",\r\n    \"name\": \"papapa\",\r\n    \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n    \"notes\": \"HI KILO\",\r\n    \"ownerId\": \"1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -90,7 +91,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Hannah\",\r\n  \"skills\": [\"PETTING\", \"FEEDING\"]\r\n}",
+					"raw": "{\r\n    \"name\": \"TestEmployee2\",\r\n    \"skills\": [\r\n        \"WALKING\",\r\n        \"SHAVING\"\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,7 +127,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\"MONDAY\", \"TUESDAY\", \"FRIDAY\"]",
+					"raw": "[\"FRIDAY\", \"SATURDAY\", \"SUNDAY\"]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -166,7 +167,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"date\": \"2019-12-17\",\n\t\"skills\": [\"PETTING\", \"FEEDING\"]\n}",
+					"raw": "{\n\t\"date\": \"2019-12-27\",\n\t\"skills\": [\"WALKING\", \"SHAVING\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,7 +193,7 @@
 		{
 			"name": "Create Schedule",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -211,16 +212,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/employee/1",
+					"raw": "http://localhost:8082/schedule",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"user",
-						"employee",
-						"1"
+						"schedule"
 					]
 				}
 			},
@@ -291,7 +290,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/employee/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -300,7 +299,7 @@
 					"path": [
 						"schedule",
 						"employee",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -331,7 +330,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/customer/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -339,8 +338,8 @@
 					"port": "8082",
 					"path": [
 						"schedule",
-						"employee",
-						"2"
+						"customer",
+						"1"
 					]
 				}
 			},
@@ -410,15 +409,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer",
+					"raw": "http://localhost:8082/pet",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"user",
-						"customer"
+						"pet"
 					]
 				}
 			},
@@ -489,7 +487,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer/pet/1",
+					"raw": "http://localhost:8082/user/customer/pet/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -499,12 +497,60 @@
 						"user",
 						"customer",
 						"pet",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/user/employee/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"user",
+						"employee",
 						"1"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Add Schedule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeIds\": [\r\n        \"1\"\r\n    ],\r\n    \"petIds\": [\r\n        \"1\"\r\n    ],\r\n    \"date\": \"2019-12-17\",\r\n    \"activities\": [\r\n        \"PETTING\",\r\n        \"FEEDING\"\r\n    ]\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/schedule",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"schedule"
+					]
+				}
+			},
+			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
